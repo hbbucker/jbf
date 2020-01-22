@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<language-addon> 
+	<addon-name>bbm</addon-name> 
+	<depends>zul</depends> 
+	<language-name>xul/html</language-name> 
+	<stylesheet href="~./bbm/img.css.dsp" type="text/css"/> 
+</language-addon> 

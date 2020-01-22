@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN" "HTTP://www.ibatis.com/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Webauf">
+    <typeAlias alias="WebaufVO" type="br.com.bbm.framework.domain.WebaufVO"/>
+
+    <select id="getRegByCod" parameterClass="Long" resultClass="WebaufVO">
+        SELECT codauf, codusu, logusu, codsis, nomsis, frmauf, opeauf, nipauf, dtaauf
+		  FROM public.webauf
+		 WHERE codauf = #value:NUMERIC#
+	</select>
+
+    <select id="getTodos" resultClass="WebaufVO">
+        SELECT codauf, codusu, logusu, codsis, nomsis, frmauf, opeauf, nipauf, dtaauf
+		  FROM public.webauf ORDER BY codauf
+	</select>
+
+	<select id="countByCriterio" parameterClass="WebaufVO" resultClass="Integer">
+        SELECT count(*)
+		  FROM public.webauf
+		<dynamic prepend=" WHERE ">
+			<isNotNull property="codauf" prepend=" AND ">
+				codauf = #codauf:NUMERIC#
+			</isNotNull>
+			<isNotNull property="codusu" prepend=" AND ">
+				codusu = #codusu:NUMERIC#
+			</isNotNull>
+			<isNotNull property="logusu" prepend=" AND ">
+				UPPER(logusu) LIKE '%' || UPPER(#logusu:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="codsis" prepend=" AND ">
+				codsis = #codsis:NUMERIC#
+			</isNotNull>
+			<isNotNull property="nomsis" prepend=" AND ">
+				UPPER(nomsis) LIKE '%' || UPPER(#nomsis:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="frmauf" prepend=" AND ">
+				UPPER(frmauf) LIKE '%' || UPPER(#frmauf:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="opeauf" prepend=" AND ">
+				opeauf = #opeauf:VARCHAR#
+			</isNotNull>
+			<isNotNull property="nipauf" prepend=" AND ">
+				nipauf LIKE #nipauf:VARCHAR# || '%'
+			</isNotNull>
+			<isNotNull property="dtaauf" prepend=" AND ">
+				dtaauf = #dtaauf:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+	</select>
+
+    <select id="getRegByCriterio" parameterClass="WebaufVO" resultClass="WebaufVO">
+        SELECT codauf, codusu, logusu, codsis, nomsis, frmauf, opeauf, nipauf, dtaauf
+		  FROM public.webauf
+		<dynamic prepend=" WHERE ">
+			<isNotNull property="codauf" prepend=" AND ">
+				codauf = #codauf:NUMERIC#
+			</isNotNull>
+			<isNotNull property="codusu" prepend=" AND ">
+				codusu = #codusu:NUMERIC#
+			</isNotNull>
+			<isNotNull property="logusu" prepend=" AND ">
+				UPPER(logusu) LIKE '%' || UPPER(#logusu:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="codsis" prepend=" AND ">
+				codsis = #codsis:NUMERIC#
+			</isNotNull>
+			<isNotNull property="nomsis" prepend=" AND ">
+				UPPER(nomsis) LIKE '%' || UPPER(#nomsis:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="frmauf" prepend=" AND ">
+				UPPER(frmauf) LIKE '%' || UPPER(#frmauf:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="opeauf" prepend=" AND ">
+				opeauf = #opeauf:VARCHAR#
+			</isNotNull>
+			<isNotNull property="nipauf" prepend=" AND ">
+				nipauf LIKE #nipauf:VARCHAR# || '%'
+			</isNotNull>
+			<isNotNull property="dtaauf" prepend=" AND ">
+				dtaauf = #dtaauf:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+	ORDER BY codauf
+	</select>
+
+    <insert id="insReg" parameterClass="WebaufVO">
+        <selectKey keyProperty="codauf" resultClass="Long">
+			select nextval('seq_codauf') as codauf
+		</selectKey>
+
+		INSERT INTO public.webauf (codauf, codusu, logusu, codsis, nomsis, frmauf, opeauf, nipauf, dtaauf)
+				VALUES (#codauf:NUMERIC#, #codusu:NUMERIC#, #logusu:VARCHAR#, #codsis:NUMERIC#, #nomsis:VARCHAR#, #frmauf:VARCHAR#, #opeauf:VARCHAR#, #nipauf:VARCHAR#, #dtaauf:TIMESTAMP#)
+	</insert>
+
+    <update id="updRegByCod" parameterClass="WebaufVO">
+        UPDATE public.webauf
+		   SET codusu = #codusu:NUMERIC#,
+			 logusu = #logusu:VARCHAR#,
+			 codsis = #codsis:NUMERIC#,
+			 nomsis = #nomsis:VARCHAR#,
+			 frmauf = #frmauf:VARCHAR#,
+			 opeauf = #opeauf:VARCHAR#,
+			 nipauf = #nipauf:VARCHAR#,
+			 dtaauf = #dtaauf:TIMESTAMP#
+		 WHERE codauf = #codauf:NUMERIC#
+    </update>
+
+    <delete id="delByCod" parameterClass="Long">
+        DELETE FROM public.webauf
+		 WHERE codauf = #value:NUMERIC#
+    </delete>
+
+</sqlMap>

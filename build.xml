@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Framework ZK" default="" basedir=".">
+	<!-- This where to be export to the local dir -->
+	<description>Exportar JAR do Framework</description>
+	<property name="jar-filename" value="framework-bbm-8.5.0.jar"></property>
+	
+	<target name="Tema" description="Exporta o tema">
+		<!-- Export File for jar -->
+		<jar jarfile="build/jars/bbm-theme-7.2-1.jar" basedir="./tema-bbm/">
+		</jar>
+	</target>
+
+	<target name="Tema-Alter" description="Exporta o tema alternativo">
+		<!-- Export File for jar -->
+		<jar jarfile="build/jars/alter-theme.jar" basedir="./tema-alter/">
+		</jar>
+	</target>
+
+	<target name="Framework" description="Exporta o Framework">
+		<echo message="copiando arquivos ...">
+		</echo>
+		<mkdir dir="build/jars" />
+		<mkdir dir="build/temp" />
+		<mkdir dir="build/temp/web" />
+		<copy todir="build/temp/">
+			<fileset dir="build/classes">
+			</fileset>
+		</copy>
+		<copy todir="build/temp/web">
+			<fileset dir="./web">
+			</fileset>
+		</copy>
+
+		<!-- Export File for jar -->
+		<jar jarfile="build/jars/${jar-filename}" basedir="./build/temp">
+		</jar>
+
+		<echo message="removendo arquivos temporarios ...">
+		</echo>
+		<delete dir="./build/temp">
+		</delete>
+
+		<copy file="build/jars/${jar-filename}" tofile="../modeloZK/WebContent/WEB-INF/lib/framework-bbm-7.3.jar" />
+		<copy file="build/jars/${jar-filename}" tofile="../admzk8/WebContent/WEB-INF/lib/framework-bbm-7.3.jar" />
+		<eclipse.refreshLocal resource="../modeloZK" depth="infinite" />
+		<eclipse.refreshLocal resource="../admzk8" depth="infinite" />
+	</target>
+</project>

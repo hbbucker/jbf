@@ -1,0 +1,166 @@
+	body {
+		background:#133951 url(${c:encodeURL('/web/images/bg_login.jpg')}) no-repeat bottom left;
+	}
+	
+	.window_login .z-window-overlapped-tl {
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-corner.png')});
+		background-color: none;
+		margin-right: 20px;
+		height: 20px;
+		line-height: 0;
+	}
+	.window_login .z-window-overlapped-tr {
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-corner.png')});
+		background-position: right -56px;
+		background-color: none;
+		height:20px;
+		margin-right:-20px;
+	}
+	
+	.window_login .z-window-overlapped-bl {
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-corner.png')});
+		background-position:0px -37px;
+		margin-right: 20px;
+		height: 19px;
+		border-top:0px;
+	}
+	.window_login .z-window-overlapped-br {
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-corner.png')});
+		background-position: right -93px;
+		background-color: none;
+		height:19px;
+		margin-right:-20px;
+		border-top:0px;
+	}
+	
+	.window_login .z-window-overlapped-hl {
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-hl.png')});
+		padding-left:20px;
+	}
+	.window_login .z-window-overlapped-hr {
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-hr.png')});
+		padding-right:20px;
+	}
+	
+	.window_login .z-window-overlapped-cl {
+		background-color:none;
+		background-image: url(${c:encodeURL('/web/images/login/wnd-ol-hl.png')});
+		padding-left:20px;
+		border:0px;
+	}
+	.window_login .z-window-overlapped-cr {
+		background:url(${c:encodeURL('/web/images/login/wnd-ol-hr.png')}) repeat-y top right;
+		padding-right:0px;
+		border-right:0px;
+		padding-right:20px;
+	}
+	
+	.window_login .z-window-overlapped-header {
+		background:none;
+		background-color:#E2E2E2;
+		
+		font-family:Arial;
+		font-size:14px;
+		font-weight:bold;
+		
+		color:#5D5D5D;
+		
+		text-align:center;
+	}
+	
+	.window_login .z-window-overlapped-cnt {
+		background:none;
+		background-color:#E2E2E2;
+	}
+	
+	.window_login .z-label {
+		font-family:Arial;
+		font-size:14px;
+		font-weight:bold;
+		
+		color:#135985;
+	}
+	
+	.window_login .z-textbox {
+		font-family:Arial;
+		font-size:14px;
+		font-weight:bold;
+		
+		background:url(${c:encodeURL('/web/images/login/textbox-bg.png')}) repeat-x top left;
+		
+		border:1px solid #9a9a9a;
+		border-top:0px;
+		
+		padding:5px;
+		
+		color:#ff6600;
+		
+		width:267px;
+	}
+	
+/*RULE:TOP-LEFT*/
+.window_login .z-button .z-button-tl{
+	background-image : none; /*PRO*/
+	background-position : top left;
+	background-color : #FFA000; /*PRO*/
+	height: 1px;
+}
+/*RULE_E*//*RULE:TOP-MIDDLE*/
+.window_login .z-button .z-button-tm{
+	background-image : none; /*PRO*/
+	background-position : top center;
+	background-color : #FFBB00; /*PRO*/
+	height: 1px;
+}
+/*RULE_E*//*RULE:TOP-RIGHT*/
+.window_login .z-button .z-button-tr{
+	background-image : none; /*PRO*/
+	background-position : top right;
+	background-color : #FFA000; /*PRO*/
+	height: 1px;
+}
+/*RULE_E*//*RULE:CENTER-MIDDLE*/
+.window_login .z-button .z-button-cm{
+	background-color : #FF8400; /*PRO*/
+	background-image : none; /*PRO*/
+	background-position : center center;
+	color : #FFFFFF; /*PRO*/
+	padding:5px;
+}
+/*RULE_E*//*RULE:CENTER-RIGHT*/
+.window_login .z-button .z-button-cr{
+	background-color : #F87F00; /*PRO*/
+	background-image : none; /*PRO*/
+	background-position : center right;
+	width:1px;
+}
+/*RULE_E*//*RULE:CENTER-LEFT*/
+.window_login .z-button .z-button-cl{
+	background-color : #F87F00; /*PRO*/
+	background-image : none; /*PRO*/
+	background-position : center left;
+	width: 1px;
+}
+/*RULE_E*//*RULE:BOTTOM-LEFT*/
+.window_login .z-button .z-button-bl{
+	background-color : #D76A00; /*PRO*/
+	background-image : none; /*PRO*/
+	background-position : bottom left;
+	height:1px;
+}
+/*RULE_E*//*RULE:BOTTOM-MIDDLE*/
+.window_login .z-button .z-button-bm{
+	background-color : #C65E00; /*PRO*/
+	background-image : none; /*PRO*/
+	background-position : bottom center;
+	height:1px;
+}
+/*RULE_E*//*RULE:BOTTOM-RIGHT*/
+.window_login .z-button .z-button-br{
+	background-color : #D76A00; /*PRO*/
+	background-image : none; /*PRO*/
+	background-position : bottom right;
+	height:1px;
+}
+/*RULE_E*/
+/*SEC_E*/

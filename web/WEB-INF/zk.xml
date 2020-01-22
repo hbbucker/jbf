@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- zk.xml
+	Purpose:
+		
+	Description:
+		
+	History:
+		Created by ZK Studio
+-->
+
+<zk>
+	<richlet>
+	        <richlet-name>Index</richlet-name>
+	        <richlet-class>br.com.bbm.framework.richlets.Index</richlet-class>        
+	</richlet>
+	<richlet-mapping>
+	    <richlet-name>Index</richlet-name>    
+	    <url-pattern>/index</url-pattern>    
+	</richlet-mapping>
+	
+	<richlet>
+	        <richlet-name>MenuGeral</richlet-name>
+	        <richlet-class>br.com.bbm.framework.richlets.MenuGeral</richlet-class>        
+	</richlet>
+	<richlet-mapping>
+	    <richlet-name>MenuGeral</richlet-name>    
+	    <url-pattern>/menuGeral</url-pattern>    
+	</richlet-mapping>
+	
+	<richlet>
+	        <richlet-name>SelSys</richlet-name>
+	        <richlet-class>br.com.bbm.framework.richlets.Selsys</richlet-class>        
+	</richlet>
+	<richlet-mapping>
+	    <richlet-name>SelSys</richlet-name>    
+	    <url-pattern>/selsys</url-pattern>    
+	</richlet-mapping>
+
+		
+</zk>

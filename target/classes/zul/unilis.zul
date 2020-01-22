@@ -1,0 +1,49 @@
+<?page id="uniLisZul" title="seleção de Unidade" cacheable="false" 
+	language="xul/html" zscriptLanguage="Java" contentType="text/html;charset=UTF-8"?>
+<?meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' ?>
+<?meta name="viewport" content="width=device-width" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="xhtml"
+	xmlns:w="client" xmlns:n="native" xmlns:ca="client/attribute"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-infabnce"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window 
+		id="wUniLis"
+		use="br.com.bbm.framework.model.Unilis"
+		sclass="card"
+		border="none" shadow="false"
+		maximizable="true"
+		contentStyle="padding:2px"
+		onCreate="wUniLis.initComponentes()"
+		width="600px" height="450px" position="center" closable="true">
+		<caption>
+			<n:p class="h4-responsive">Seleção de Unidade</n:p>
+		</caption>
+		
+		<listbox id="lbox" rows="16" onSelect="wUniLis.selecionar()" 
+			style="border:none" vflex="1" width="100%"
+			model="@{wUniLis.listmodel}" selectedItem="@{wUniLis.item}">
+			<listhead menupopup="auto" sizable="true">
+				<listheader label="Código" width="60px" align="center">
+					<vbox spacing="0px" hflex="1">
+						<separator height="2px"/>
+				        <space width="10px"></space>
+			   	 	</vbox>
+				</listheader>
+				<listheader label="Descrição" width="80%" >
+					<vbox spacing="0px" hflex="1">
+						<separator height="2px"/>
+						<textbox id="nome" value="@{wUniLis.nome}" 
+				        	onOK="wUniLis.pesquisar();"
+							hflex="1" focus="true" />
+					</vbox>
+				</listheader>
+			</listhead>
+			<listitem self="@{each=vo}">
+				<listcell height="30px" label="@{vo.coduni}"/>
+				<listcell label="@{vo.desuni}" />
+			</listitem>				
+		</listbox>
+	</window>
+</zk>

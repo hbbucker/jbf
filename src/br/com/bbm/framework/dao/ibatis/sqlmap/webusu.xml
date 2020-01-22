@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN" "HTTP://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="webusu">
+	<typeAlias alias="WebusuVO" type="br.com.bbm.framework.domain.WebusuVO"/>
+    <typeAlias alias="WebsisVO" type="br.com.bbm.framework.domain.WebsisVO"/>
+    
+	<select id="getCodByLogSen" parameterClass="WebusuVO" resultClass="int">
+		select codusu as value
+		  from webusu
+		 where logusu = #logusu:VARCHAR#
+		   and senusu = md5(#senusu:VARCHAR#)
+	</select>
+	<select id="getQtdByLog" parameterClass="String" resultClass="int">
+		select count(*) as value
+		  from webusu
+		 where logusu = #value:VARCHAR#
+	</select>
+	<select id="getLogNomByCod" parameterClass="int" resultClass="WebusuVO">
+		select *
+		  from webusu
+		 where codusu = #value:NUMBER#
+	</select>
+	<select id="getNomByCod" parameterClass="int" resultClass="String">
+		select  nomusu
+		 from   webusu
+		 where  codusu = #value:NUMBER#
+	</select>
+	<select id="getRegByCod" parameterClass="int" resultClass="WebusuVO">
+		select *
+		  from webusu
+		 where codusu = #value:VARCHAR#
+	</select>
+	<select id="getLogNomByLogNom" resultClass="hashmap">
+		select codusu, logusu, nomusu
+		  from webusu
+		<dynamic prepend=" where ">
+			<isNotNull property="logusu">
+				logusu like '%'|| #logusu# ||'%'
+			</isNotNull>
+			<isNotNull property="nomusu" prepend=" and ">
+				upper(nomusu) like '%'||upper(#nomusu#)||'%'
+			</isNotNull>
+		</dynamic>
+		limit $limite$
+	</select>
+
+	<select id="getSistemas" parameterClass="Integer" resultClass="WebsisVO">
+		select *
+		  from websis
+		  <dynamic prepend=" WHERE ">
+			<isNotNull prepend=" AND ">
+				codsis = #value:number#
+			</isNotNull>
+		  </dynamic>
+		  order by nomsis
+	</select>
+		
+	<select id="getUsuSistemas" parameterClass="hashmap" resultClass="WebsisVO">
+		select distinct s.*
+		  from websis s
+		  inner join webups u on u.codsis = s.codsis
+		  <dynamic>
+		  	<isNotNull prepend=" AND " property="codusu">
+		  		codusu = #codusu:number#
+		  	</isNotNull>
+		  	<isNotNull prepend=" AND " property="codsis">
+		  		u.codsis = #codsis:number#
+		  	</isNotNull>
+		  </dynamic>
+		  order by nomsis
+	</select>	
+		
+	<select id="getDataBanco" resultClass="java.util.Date">
+		SELECT CURRENT_TIMESTAMP
+	</select>
+
+</sqlMap>

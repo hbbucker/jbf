@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Webfav">
+    <typeAlias alias="WebfavVO" type="br.com.bbm.framework.domain.WebfavVO"/>
+
+    <select id="getRegByCod" parameterClass="Integer" resultClass="WebfavVO">
+        SELECT *
+		  FROM public.webfav
+		 WHERE codfav = #value:NUMERIC#
+	</select>
+
+    <select id="getTodos" resultClass="WebfavVO">
+        SELECT *
+		  FROM public.webfav ORDER BY codfav
+	</select>
+
+    <select id="getRegByCriterio" parameterClass="WebfavVO" resultClass="WebfavVO">
+        SELECT *
+		  FROM public.webfav
+		<dynamic prepend=" WHERE ">
+			<isNotNull property="codfav" prepend=" AND ">
+				codfav = #codfav:NUMERIC#
+			</isNotNull>
+			<isNotNull property="desfav" prepend=" AND ">
+				UPPER(desfav) LIKE '%' || UPPER(#desfav:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="urlfr" prepend=" AND ">
+				urlfr = #urlfr:VARCHAR#
+			</isNotNull>
+			<isNotNull property="codusu" prepend=" AND ">
+				codusu = #codusu:NUMERIC#
+			</isNotNull>
+			<isNotNull property="codsis" prepend=" AND ">
+				codsis = #codsis:NUMERIC#
+			</isNotNull>
+			<isNotNull property="codprf" prepend=" AND ">
+				codprf = #codprf:NUMERIC#
+			</isNotNull>
+			<isNotNull property="coduni" prepend=" AND ">
+				coduni = #coduni:VARCHAR#
+			</isNotNull>
+		</dynamic>
+	ORDER BY codfav
+	</select>
+
+    <insert id="insReg" parameterClass="WebfavVO">
+        <selectKey keyProperty="codfav" resultClass="Integer">
+			select nextval('webfav_codfav_seq') as codfav
+		</selectKey>
+
+		INSERT INTO public.webfav (codfav, desfav, urlfr, codusu, codsis, codprf, coduni)
+				VALUES (#codfav:NUMERIC#, #desfav:VARCHAR#, #urlfr:VARCHAR#, #codusu:NUMERIC#, #codsis:NUMERIC#, #codprf:NUMERIC#, #coduni:VARCHAR#)
+	</insert>
+
+    <update id="updRegByCod" parameterClass="WebfavVO">
+        UPDATE public.webfav
+		   SET desfav = #desfav:VARCHAR#,
+			 urlfr = #urlfr:VARCHAR#,
+			 codusu = #codusu:NUMERIC#,
+			 codsis = #codsis:NUMERIC#,
+			 codprf = #codprf:NUMERIC#,
+			 coduni = #coduni:VARCHAR#
+		 WHERE codfav = #codfav:NUMERIC#
+    </update>
+
+    <delete id="delByCod" parameterClass="Integer">
+        DELETE FROM public.webfav
+		 WHERE codfav = #value:NUMERIC#
+    </delete>
+
+</sqlMap>

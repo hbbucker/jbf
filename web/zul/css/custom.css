@@ -1,0 +1,118 @@
+@CHARSET "UTF-8";
+
+.form-date-control>input {
+	background-color: #ffffff;
+	background-image: none;
+	border: 1px 1px 1px 0px solid #cccccc;
+	border-radius: 4px 0px 0px 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	color: #555555;
+	display: inline-block;
+	font-size: 14px;
+	height: 34px;
+	line-height: 1.42857;
+	padding: 6px 12px;
+	transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s
+		ease-in-out 0s;
+	vertical-align: middle;
+	width: 80%;
+}
+
+.form-date-control > .z-timebox-button > a,
+.z-timebox-button > a:hover {
+	height: 18px;
+	padding: 0px 10px;
+	width: 100%;
+	border: none;
+}
+
+.form-date-control>a,
+.form-date-control > .z-timebox-button {
+	
+	background: #fff none repeat scroll 0 0;
+	border: 1px solid #cfcfcf;
+	border-radius: 0 3px 3px 0;
+	color: #636363;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 18px;
+	height: 34px;
+	line-height: 22px;
+	min-width: 34px;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.z-groupbox-content {
+	padding-top: 20px;
+}
+
+
+.z-grid-odd > .z-row-inner {
+	background: none !important;
+}
+
+.z-window-icon {
+	height: 28px;
+}
+
+.z-caption-content > p.h4-responsive {
+	color: rgb(51, 51, 51) !important;
+	margin-bottom: 0px;
+	margin-left: 5px;
+ 	font-family: "Roboto";
+	padding-top: 2px;
+}
+
+/** MSG ERRO DO CAMPO **/
+.z-errorbox-content {
+	background-color: #FF8800 !important;
+	color: white !important;
+	font-family: "Montserrat" !important;
+	font-size: 14px !important;
+/* 	border-radius: 5px; */
+}
+.z-errorbox-icon {
+/* 	top: -3px !important; */
+/* 	position: relative !important; */
+	color: white !important;
+}
+
+/** Definições extras para mobile */
+@media only screen and (max-device-width: 768px) {
+	.z-errorbox-pointer.z-errorbox-up {
+		display: none !important;
+	}		
+	
+	.z-errorbox-content {
+		font-size: 12px !important;
+	}	
+}
+
+/** FIM MSG ERRO DO CAMPO **/
+
+.btn-group, .btn-group-vertical { 
+	margin: 0px !important;
+}
+
+/** TOOLBAR **/
+.z-toolbar{
+	padding: 0 !important;
+	border: none;
+	background: transparent;
+	margin-bottom: 5px !important;
+}
+/* FIM TOOLBAR */
+.z-errorbox-close {
+	color: white !important;
+}
+
+.z-errorbox-close:hover {
+	border: none !important;
+}
+
+[class^="z-icon-"]::before, [class*=" z-icon-"]::before {
+	top: -1px;
+	position: relative;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN" "HTTP://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Acesso">
+	<typeAlias alias="WebsisVO" type="br.com.bbm.framework.domain.WebsisVO"/>
+	<typeAlias alias="Webusu" type="br.com.bbm.framework.domain.Webusu"/>
+    
+	<select id="getCodByLogSen" parameterClass="Webusu" resultClass="int">
+		select codusu as value
+		  from webusu
+		 where logusu = #logusu:VARCHAR#
+		   and senusu = md5(#senusu:VARCHAR#)
+	</select>
+	<select id="getQtdByLog" parameterClass="String" resultClass="int">
+		select count(*) as value
+		  from webusu
+		 where logusu = #value:VARCHAR#
+	</select>
+	<select id="getLogNomByCod" parameterClass="int" resultClass="Usuario">
+		select codusu, nomusu, logusu
+		  from webusu
+		 where codusu = #value:NUMBER#
+	</select>
+	<select id="getRegByCod" parameterClass="int" resultClass="Usuario">
+		select codusu, nomusu, logusu, senusu, codprf
+		  from webusu
+		 where codusu = #value:VARCHAR#
+	</select>
+	<select id="getQtdList" resultClass="int">
+		select count(*) as value
+		  from webusu
+		 where logusu like '%'|| #logusu# ||'%'
+		   and upper(nomusu) like '%'||upper(#nomusu#)||'%'
+	</select>
+	
+	<select id="getLogNomByLogNom" resultClass="hashmap">
+		select codusu, logusu, nomusu
+		  from webusu
+<!-- 		 where logusu like '%'|| #logusu# ||'%'
+		   and upper(nomusu) like '%'||upper(#nomusu#)||'%' -->
+	</select>
+</sqlMap>

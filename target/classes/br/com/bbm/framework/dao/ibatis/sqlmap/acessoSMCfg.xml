@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "//iBATIS.com/DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings
+		cacheModelsEnabled="true"
+		enhancementEnabled="true"
+		lazyLoadingEnabled="true"
+		useStatementNamespaces="true"
+	/>
+
+	<transactionManager type="JDBC">
+		<dataSource type="JNDI">
+			<property name="DBJndiContext" value="java:comp/env/jdbc/jndiacessos" />
+		</dataSource>
+	</transactionManager>
+
+	 <!--
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="org.postgresql.Driver" />
+			<property name="JDBC.ConnectionURL" value="jdbc:postgresql://10.4.1.190:5432/DBACESSOS"/>
+			<property name="JDBC.Username" value="postgres"/>
+			<property name="JDBC.Password" value="postgres"/>
+		</dataSource>
+	</transactionManager>
+  -->
+	<sqlMap resource="br/com/bbm/framework/dao/ibatis/sqlmap/webusu.xml" />
+    <sqlMap resource="br/com/bbm/framework/dao/ibatis/sqlmap/webmnu.xml" />
+    <sqlMap resource="br/com/bbm/framework/dao/ibatis/sqlmap/webuni.xml" />
+    <sqlMap resource="br/com/bbm/framework/dao/ibatis/sqlmap/webauf.xml" />
+    <sqlMap resource="br/com/bbm/framework/dao/ibatis/sqlmap/webfav.xml" />
+</sqlMapConfig>

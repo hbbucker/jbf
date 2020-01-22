@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language-addon>
+<!--	<addon-name>formattedinputbox</addon-name>-->
+	<addon-name>maxkbox</addon-name>
+	<version>
+		<version-class>br.com.bbm.framework.util.Version</version-class>
+		<version-uid>2.0a</version-uid>
+		<zk-version>7.0.0</zk-version><!-- or later -->
+	</version>
+	<language-name>xul/html</language-name>
+	<device-type>ajax</device-type>
+	
+	<javascript src="~./js/zk/zk.js.dsp" charset="UTF-8"/>
+	<javascript src="~./js/zk/lang.js.dsp" charset="UTF-8"/>
+	<stylesheet href="~./zul/css/norm*.css.dsp*" type="text/css"/>
+	
+<!--	<component>-->
+<!--		<component-name>formattedinputbox</component-name>-->
+<!--		<component-class>br.com.bbm.framework.ui.FormattedInputbox</component-class>-->
+<!--		<mold>-->
+<!--			<mold-name>default</mold-name>-->
+<!--			<mold-uri>~./zul/html/formattedinputbox.dsp</mold-uri>-->
+<!--		</mold>-->
+<!--	</component>-->
+	
+<!-- 	<component>
+		<component-name>maskbox</component-name>
+		<component-class>br.com.bbm.framework.ui.MaskBox</component-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>~./zul/html/maskbox.dsp</mold-uri>
+		</mold>
+		<annotation>
+			<annotation-name>default-bind</annotation-name>
+			<property-name>value</property-name>
+			<attribute>
+				<attribute-name>access</attribute-name>
+				<attribute-value>both</attribute-value>
+			</attribute>
+			<attribute>
+				<attribute-name>save-when</attribute-name>
+				<attribute-value>self.onChange</attribute-value>
+			</attribute>
+		</annotation>
+	</component> -->
+</language-addon>

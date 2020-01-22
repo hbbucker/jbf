@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN" "HTTP://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Webmnu">
+	
+	<select id="getMenuNew" parameterClass="hashmap" resultClass="br.com.bbm.framework.domain.VwebmnuVO">
+		SELECT DISTINCT hiefrm, nomfrm, tipfrm, nivfrm, codsis, urlfrm, codusu, coduni, desfrm, mnefrm
+		  FROM vwebmnu
+		 WHERE codsis = #codsis#
+		   AND codusu = #codusu#
+		   AND coduni = #coduni#
+		   AND nivfrm = #nivfrm#
+		 ORDER BY hiefrm
+	</select>
+	
+	<select id="getMenu" parameterClass="hashmap" resultClass="br.com.bbm.framework.domain.VwebmnuVO">
+		SELECT mnu.*
+		FROM (
+			SELECT hiefrm, nomfrm, tipfrm, nivfrm, codsis, urlfrm, codusu, coduni, desfrm, mnefrm
+			  FROM vwebmnu
+			 WHERE codsis = #codsis#
+			   AND codusu = #codusu#
+			   AND coduni = #coduni#
+			 UNION
+			SELECT hiefrm, nomfrm, tipfrm, nivfrm, ups.codsis, urlfrm, ups.codusu, ups.coduni, desfrm, mnefrm
+			  FROM webfrm frm, webups ups
+			 WHERE frm.codsis = ups.codsis
+			   AND ups.codsis = #codsis#
+			   AND ups.codprf = 1 
+			   AND ups.codusu = #codusu#
+			   AND ups.coduni = #coduni#
+			   AND frm.tipfrm > 0
+			  ) AS mnu
+		<dynamic prepend=" WHERE ">
+			<isNotEmpty property="nivfrm" prepend=" AND ">
+				nivfrm = #nivfrm#
+			</isNotEmpty>
+
+			<isNotEmpty property="tipfrm" prepend=" AND ">
+				tipfrm = #tipfrm#
+			</isNotEmpty>
+			
+			<isNotEmpty property="hiefrm" prepend=" AND ">
+				hiefrm ILIKE #hiefrm# || '%'
+			</isNotEmpty>
+		</dynamic>
+		ORDER BY hiefrm;
+  </select>
+  
+
+    <select id="getPerfUniSis" parameterClass="HashMap" resultClass="Integer">
+		SELECT DISTINCT codprf 
+		  FROM webups 
+		 WHERE codsis = #codsis# 
+		   AND coduni = #coduni# 
+		   AND codusu = #codusu# 
+    </select>
+
+<!-- 
+	<select id="getMenu" parameterClass="hashmap" resultClass="pmcg.imti.domain.VwebmnuVO">
+		SELECT hiefrm, nomfrm, tipfrm, nivfrm, codsis, urlfrm, codusu, codprf, coduni, desfrm, mnefrm
+		  FROM vwebmnu
+		 WHERE codsis = #codsis#
+		   AND codusu = #codusu#
+		   AND coduni = #coduni#
+		 UNION
+		SELECT hiefrm, nomfrm, tipfrm, nivfrm, ups.codsis, urlfrm, ups.codusu, ups.codprf, ups.coduni, desfrm, mnefrm
+		  FROM webfrm frm, webups ups
+		 WHERE frm.codsis = ups.codsis
+		   AND ups.codsis = #codsis#
+		   AND ups.codprf = 1 
+		   AND ups.codusu = #codusu#
+		   AND ups.coduni = '1'
+		   AND frm.tipfrm > 0
+  </select>
+ -->
+  <select id="getUnidades" parameterClass="hashmap" resultClass="hashmap">
+  	   SELECT distinct on (p.codsis, p.codusu, p.coduni, desuni, siguni) 
+  	          p.codsis, p.codusu, p.coduni, desuni, siguni, codprf
+  	      FROM webups p
+	INNER JOIN webuni u ON u.coduni = p.coduni AND u.codsis = p.codsis 		 
+  		 <dynamic prepend=" WHERE ">
+  		 	<isNotNull property="codusu" prepend=" AND ">
+  		 		p.codusu = #codusu#
+  		 	</isNotNull>
+  		 	<isNotNull property="codsis" prepend=" AND ">
+  		 		p.codsis = #codsis#
+  		 	</isNotNull>
+  		 	<isNotNull property="desuni" prepend=" AND ">
+  		 		u.desuni ILIKE '%' || #desuni# || '%'
+  		 	</isNotNull>
+  		 	<isNotNull property="coduni" prepend=" AND ">
+  		 		u.coduni = #coduni:VARCHAR#
+  		 	</isNotNull>
+  		 </dynamic>
+  		 order by p.codsis, p.codusu, p.coduni, desuni, siguni
+  </select>
+
+	<select id="getUser" parameterClass="br.com.bbm.framework.domain.WebusuVO" resultClass="br.com.bbm.framework.domain.WebusuVO">
+		SELECT u.codusu, u.logusu, u.senusu, u.nomusu, u.emausu, u.urmusu, u.dtmusu
+		  FROM webusu u
+		 WHERE logusu = #logusu:VARCHAR# 
+		   AND senusu = MD5(#senusu:VARCHAR#)
+		   AND atvusu = 'S'
+    </select>
+    
+    <select id="getSistema" parameterClass="Integer" resultClass="string">
+		SELECT nomsis
+		  FROM websis 
+		 WHERE codsis = #value#
+    </select>
+    
+    <select id="getSistema1" parameterClass="Integer" resultClass="br.com.bbm.framework.domain.WebsisVO">
+		SELECT *
+		  FROM websis 
+		 WHERE codsis = #value#
+    </select>
+    
+    <select id="getSistemaByContext" parameterClass="String" resultClass="br.com.bbm.framework.domain.WebsisVO">
+    	select *
+		  from websis
+		 where lower(urlsis) like '%/' || lower(#value#)
+    </select>
+    
+    <select id="getFrmPermissoes" parameterClass="HashMap" resultClass="hashmap">
+select distinct nomfrm, urlfrm, tipfrm, 
+       		   max(cadfrm) as cadfrm, max(excfrm) as excfrm, max(altfrm) as altfrm, max(busfrm) as busfrm, max(impfrm) as impfrm,
+       		   max(cadace) as cadace, max(excace) as excace, max(altace) as altace, max(busace) as busace, max(impace) as impace, max(mnefrm) as mnefrm
+from (
+		SELECT nomfrm, urlfrm, tipfrm, 
+       		   cadfrm, excfrm, altfrm, busfrm, impfrm,
+       		   cadace, excace, altace, busace, impace, mnefrm  
+		  FROM webace a 
+		 INNER JOIN webfrm f ON f.codfrm = a.codfrm 
+		 WHERE a.codprf in ($codprf$)
+		   AND f.codsis = #codsis:INTEGER#
+		 UNION
+		SELECT nomfrm, urlfrm, tipfrm, 
+       		   cadfrm, excfrm, altfrm, busfrm, impfrm,
+       		   'S', 'S', 'S', 'S', 'S', mnefrm  
+		  FROM webfrm f 
+		 WHERE 1 in ($codprf$)
+		   AND f.codsis = #codsis:INTEGER#) a
+		group by nomfrm, urlfrm, tipfrm
+
+	</select>
+	
+	<select id="getRptDesign" parameterClass="hashmap" resultClass="hashmap">
+		SELECT * 
+		  FROM webrpt r 
+	   NATURAL JOIN webhst h 
+		 WHERE nomrpt = #nomrpt:VARCHAR#
+		   AND codsis = #codsis:NUMBER#
+	</select>
+
+	<select id="getFavorito" parameterClass="hashmap" resultClass="hashmap">
+		SELECT * 
+		  FROM webfav r  
+		 WHERE urlfrm = #urlfrm:VARCHAR#
+		   AND codsis = #codsis:NUMBER#
+		   AND codusu = #codusu:NUMBER#
+		   AND coduni = #coduni:VARCHAR#
+		   AND codprf = #codprf:NUMBER#
+	</select>
+	<select id="getTodosFavorito" parameterClass="hashmap" resultClass="hashmap">
+		SELECT * 
+		  FROM webfav r  
+		 WHERE urlfrm = #urlfrm:VARCHAR#
+		   AND codsis = #codsis:NUMBER#
+		   AND codusu = #codusu:NUMBER#
+		   AND coduni = #coduni:VARCHAR#
+		   AND codprf = #codprf:NUMBER#
+	</select>
+	
+</sqlMap>

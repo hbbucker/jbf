@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "//iBATIS.com//DTD SQL Map 2.0//EN" "HTTP://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Webuni">
+	<typeAlias alias="WebuniVO" type="br.com.bbm.framework.domain.WebuniVO"/>
+
+	<select id="getRegByCod" parameterClass="WebuniVO" resultClass="WebuniVO">
+		select *
+		  from webuni
+		 where codsis = #codsis:NUMBER# 
+		   and coduni = #coduni:VARCHAR#
+	</select>
+	
+	<select id="getRegByCriterio" parameterClass="WebuniVO" resultClass="WebuniVO">
+        SELECT *
+		  FROM webuni
+		<dynamic prepend=" WHERE ">
+			<isNotNull property="codsis" prepend=" AND ">
+				codsis = #codsis:NUMBER#
+			</isNotNull>
+			<isNotNull property="coduni" prepend=" AND ">
+				coduni = #coduni:NUMBER#
+			</isNotNull>
+			<isNotNull property="desuni" prepend=" AND ">
+				UPPER(desuni) LIKE '%' || UPPER(#desuni:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="siguni" prepend=" AND ">
+				UPPER(siguni) LIKE '%' || UPPER(#siguni:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="paiuni" prepend=" AND ">
+				UPPER(paiuni) LIKE '%' || UPPER(#paiuni:VARCHAR#) || '%'
+			</isNotNull>
+			<isNotNull property="dteuni" prepend=" AND ">
+				dteuni = #dteuni:TIMESTAMP#
+			</isNotNull>
+			<isNotNull property="dtsuni" prepend=" AND ">
+				dtsuni = #dtsuni:TIMESTAMP#
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+
+	<select id="getSetorByDes" parameterClass="WebuniVO" resultClass="WebuniVO">
+		select s.codsis, s.coduni, s.desuni,
+		       s.dteuni, s.dtsuni, s.siguni,
+		       s.paiuni, s.tipuni, s1.desuni as despai,
+		       substring(s1.siguni,1,3) as sigsec
+		  from webuni s
+		  inner join webuni s1 on s1.siguni = s.paiuni and s1.codsis = s.codsis
+		 where s.desuni ilike '%' || #desuni:VARCHAR# || '%'
+		   and s.codsis = #codsis:VARCHAR#
+		 order by s.desuni
+		 limit 50
+	</select>
+
+	<select id="getSetoresAtivos" parameterClass="WebuniVO" resultClass="WebuniVO">
+		select s.codsis, s.coduni, s.desuni,
+		       s.dteuni, s.dtsuni, s.siguni,
+		       s.paiuni, s.tipuni, s1.desuni as despai,
+		       substring(s1.siguni,1,3) as sigsec
+		  from webuni s
+		  inner join webuni s1 on s1.siguni = s.paiuni and s1.codsis = s.codsis
+		 where s.desuni ilike '%' || #desuni:VARCHAR# || '%'
+		   and s.codsis = #codsis:VARCHAR#
+		   and (s.dtsuni is null or s.dtsuni >= current_date)
+		   and (s1.dtsuni is null or s1.dtsuni >= current_date)
+		 order by s.desuni
+		 limit 50
+	</select>
+
+	<select id="getSetorByCod" parameterClass="WebuniVO" resultClass="WebuniVO">
+		select s.codsis, s.coduni, s.desuni,
+		       s.dteuni, s.dtsuni, s.siguni,
+		       s.paiuni, s.tipuni, s1.desuni as despai,
+		       substring(s1.siguni,1,3) as sigsec
+		  from webuni s
+		 inner join webuni s1 on s1.siguni = s.paiuni and s1.codsis = s.codsis
+		 where s.siguni = #siguni:VARCHAR#
+		   and s.codsis = #codsis:VARCHAR#
+		   and (s.dtsuni is null or s.dtsuni >= current_date)
+		   and (s1.dtsuni is null or s1.dtsuni >= current_date)
+		 order by s.desuni
+		 limit 50
+	</select>
+</sqlMap>
